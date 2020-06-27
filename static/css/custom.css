@@ -1,0 +1,79 @@
+.form-control:focus{
+border-color: #3d698b !important;
+}
+
+#inputEditDeleteProject{
+display:inline-block;
+}
+
+#inputQuestionProject{
+display:inline-block;
+}
+
+#cancelButtonHome{
+background-color: #DC143C !important;
+}
+
+#cancelEditButtonHome{
+background-color: #DC143C !important;
+}
+
+#cancelDeleteButtonHome, #cancelEditButtonHomeTask, #closeCompleteButtonTask, #cancelDeleteButtonHomeTasks, #cancelEditUser{
+background-color: #DC143C !important;
+}
+
+#cancelDeleteButtonHome:hover, #cancelEditButtonHomeTask:hover, #closeCompleteButtonTask:hover, #cancelDeleteButtonHomeTasks:hover, #cancelEditUser:hover{
+background-color: #d9d9d9 !important;
+text-color:white;
+}
+
+
+
+#cancelEditButtonHome:hover{
+background-color: #d9d9d9 !important;
+}
+
+
+.cancelButtonHome{
+background-color: #ff6666 !important;
+}
+
+.cancelButtonHome:hover{
+background-color: #d9d9d9 !important;
+}
+
+.formsTables{
+display: inline-block;
+margin-left: 1vh;
+margin-top:0 !important;
+}
+
+.smallButton{
+padding-right: 8px !important;
+padding-left: 8px !important;
+margin-top:0 !important;
+}
+
+.background-transparent{
+background-color: rgba(245, 245, 245, 0.15) !important;
+padding: 2vh;
+}
+
+.button.white:hover{
+background-color: rgba(45, 65, 123, 1) !important;
+}
+
+.button.whiteHome:hover
+.button.whiteHomeForm{
+background-color: rgb(255, 255, 255) !important;
+}
+
+.button.whiteHome{
+margin-top:2vh !important;
+}
+
+.button.greyHome:hover{
+background-color: #d9d9d9 !important;
+}
+
+

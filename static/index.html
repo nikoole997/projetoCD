@@ -1,0 +1,459 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="John Doe">
+    <meta name="description" content="">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title -->
+    <title>Home</title>
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/ico" href="/static/images/favicon.ico"/>
+    <!-- Plugin-CSS -->
+    <link rel="stylesheet" href="/static/css/custom.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- Main-Stylesheets -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <![endif]-->
+</head>
+
+<body data-spy="scroll" data-target="#primary-menu">
+
+<div class="preloader">
+    <div class="sk-folding-cube">
+        <div class="sk-cube1 sk-cube"></div>
+        <div class="sk-cube2 sk-cube"></div>
+        <div class="sk-cube4 sk-cube"></div>
+        <div class="sk-cube3 sk-cube"></div>
+    </div>
+</div>
+
+<div class="preloader">
+    <div class="sk-folding-cube">
+        <div class="sk-cube1 sk-cube"></div>
+        <div class="sk-cube2 sk-cube"></div>
+        <div class="sk-cube4 sk-cube"></div>
+        <div class="sk-cube3 sk-cube"></div>
+    </div>
+</div>
+
+
+<!--Header-area-->
+<header class="full-height overlay relative v-center" id="home-page" style="position:relative;">
+    <div class="absolute anlge-bg" style="position:fixed; background-color: #75cbe7;"></div>
+    <div class="container" id="login-page">
+        <div class="row v-center">
+            <div class="col-xs-12 col-md-5 header-text background-transparent">
+                <div class="text-center">
+                    <h2>Registar</h2></div>
+                <p>Não tem conta? Faça o seu registo.</p>
+                <form id="formRegister">
+                    <div class="form-group">
+                        <label for="inputName">Nome</label>
+                        <input type="text" class="form-control" id="inputName"
+                               placeholder="O seu nome">
+                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="inputUsername">Username</label>
+                        <input type="text" class="form-control" id="inputUsername"
+                               placeholder="O seu username">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail">Email</label>
+                        <input type="email" autocomplete="username" class="form-control" id="inputEmail"
+                               aria-describedby="emailHelp"
+                               placeholder="O seu email">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword">Password</label>
+                        <input type="password" autocomplete="current-password" class="form-control" id="inputPassword"
+                               placeholder="A sua password">
+                    </div>
+                    <div class="text-center">
+                        <input type="button" onclick="alert('Registado com sucesso'); register() "
+                               class="button white center-block" value="Registar">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-1 divider" style="">&nbsp;</div>
+            <div class="col-md-1">&nbsp;</div>
+
+            <div class="col-xs-12 col-md-5 header-text background-transparent">
+                <div class="text-center">
+                    <h2>Login
+                        <svg class="bi bi-lock" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M11.5 8h-7a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1zm-7-1a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-7zm0-3a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+                        </svg>
+                    </h2>
+                </div>
+                <p>Para entrar é necessário efetuar o login.</p>
+                <form id="formLogin">
+                    <div class="form-group">
+                        <label for="inputUsernameLogin">Username</label>
+                        <input type="text" class="form-control" id="inputUsernameLogin"
+                               placeholder="O seu username">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPasswordLogin">Password</label>
+                        <input type="password" class="form-control" id="inputPasswordLogin"
+                               placeholder="A sua password">
+                    </div>
+                    <div class="text-center">
+                        <input type="button" onclick=" login()" class="button white center-block" value="Login">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+        <!--Mainmenu-area-->
+<div class="mainmenu-area"  data-offset-top="100" id="mainmenu-area-top" style="z-index: 100;">
+    <div class="container">
+        <!--Logo-->
+        <div class="navbar-header">
+            <a href="" class="navbar-brand logo">
+                <h2 id="welcomeuser">Bem-vindo
+                    <div id="userLoggedArea"></div>
+                </h2>
+            </a>
+        </div>
+        <!--Logo/-->
+        <nav class="collapse navbar-collapse" id="primary-menu">
+            <ul class="nav navbar-nav navbar-right">
+                <li class=""><a href="javascript:void(0)" onclick="getProjects();">Projetos e Tarefas</a></li>
+                <li><a href="javascript:void(0)">
+                    <div onclick="showUserDetails()"> Área do Utilizador</div>
+                </a></li>
+                <li><a href="javascript:void(0)"><div onclick="logout()">Sair</div></a></li>
+            </ul>
+        </nav>
+
+    </div>
+</div>
+<!--Mainmenu-area/-->
+    <div class="container" style="display:inline-block;width: 90%; height:70%; " id="main-page-projects">
+        <!-- Alerts Actions -->
+        <div class="alert alert-success alert-dismissible" style="z-index: 1; position:relative;" id="successDialog">
+          <div onclick="document.getElementById('successDialog').style.display = 'None';" class="close">&times;</div>
+            <strong>Success!</strong> <div id="successInformation"></div>
+        </div>
+            <div class="alert alert-danger alert-dismissible" style="z-index: 1; position:relative;" id="warningDialog">
+            <div onclick="document.getElementById('warningDialog').style.display = 'None';" class="close">&times;</div>
+                <strong>Success!</strong> <div id="warningInformation"></div>
+        </div>
+        <!-- // Alerts Actions -->
+        <div class="row v-center">
+            <div class="col-xs-12 col-md-7 header-text">
+                <h2>Projetos Realizados</h2>
+                <input type="button" class="button whiteHome" data-toggle="modal" data-target="#modalCreateProjects"
+                       value="Inserir novo projeto">
+                <table class="table" id="tableProjects" style="background-color: #004466; margin-top:1vh;">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Data Criação</th>
+                        <th scope="col">Data Atualização</th>
+                        <th scope="col">Ações</th>
+                        <th scope="col">Tabelas</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbodyTableCreateProjects">
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-12 col-md-5 header-text" id="tasks-div">
+                <h2>Tarefas</h2>
+                <div id="tableTasksDiv"> Ainda não tem tarefas.</div>
+                <table class="table" id="tableTasks" style="background-color: #004466; margin-top:1vh;">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Data Criação</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbodyTableCreateTasks">
+                    </tbody>
+                </table>
+                <input type="button" class="button whiteHome" data-toggle="modal" data-target="#modalCreateTasks"
+                       value="Inserir nova tarefa">
+                <input type="hidden" id="currentProjectId" value="">
+            </div>
+        </div>
+    </div>
+    <div class="container" style="display:inline-block;width: 90%; height:70%;" id="usersAccount">
+        <!-- Alerts Actions Edit User -->
+        <div class="alert alert-success alert-dismissible" style="z-index: 1; position:relative;" id="successDialogUser">
+          <div onclick="document.getElementById('successDialogUser').style.display = 'None';" class="close">&times;</div>
+            <strong>Success!</strong> <div id="successInformationUser"></div>
+        </div>
+            <div class="alert alert-danger alert-dismissible" style="z-index: 1; position:relative;" id="warningDialogUser">
+            <div onclick="document.getElementById('warningDialogUser').style.display = 'None';" class="close">&times;</div>
+                <strong>Success!</strong> <div id="warningInformationUser"></div>
+        </div>
+        <!-- // Alerts Actions Edit User -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">&nbsp;</div>
+                    <div class="col-xs-12 col-sm-6 d-flex justify-content-center text-center">
+                        <div class="price-table active" style="margin-bottom:2vh;">
+                            <span class="price-info"><span class="ti-crown"></span></span>
+                            <h3 class="text-uppercase price-title">Área de Utilizador</h3>
+                            <hr>
+                            <form id="userEditInformations">
+                            <div id="idUserArea"></div>
+                            <ul class="list-unstyled">
+                                <li><strong>Nome : </strong><div id="nameUserArea"></div></li>
+                                <li><strong>Email : </strong><div id="emailUserArea"></div></li>
+                                <li><strong>Username : </strong><div id="usernameUserArea"></div></li>
+                                <li><strong>Password : </strong><div id="passwordUserArea"></div></li>
+                            </ul>
+                            <hr>
+                              <div id="changeInformationsUserDiv">
+                            <input type="button" class="button" onclick="changeInformations()" value="Alterar as suas informações">
+                              </div>
+                            <div id="editInformationsUserDiv">
+                            <input type="button" class="button" id="cancelEditUser" onclick="disabledUserEdit()" value="Cancelar">
+                            <input type="button" class="button" onclick="editUserInformations()" value="Alterar Informações"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</header>
+<!--Header-area/-->
+<!-- Modal Insert Projects -->
+<div class="modal fade" id="modalCreateProjects" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalCreateProjectsLabel">Inserir Novo Projeto</h3>
+            </div>
+            <form id="formCreateProjects">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputTitleProject">Título</label>
+                        <input type="text" class="form-control" name="inputTitleProject" id="inputTitleProject"
+                               placeholder="O título do projeto">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center center-block">
+                        <input type="button" class="cancelHome button" id="cancelButtonHome" data-dismiss="modal"
+                               value="Close">
+                        <input type="button" onclick="insertProject()" class="button greyHome" value="Inserir">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- #Modal Insert Projects -->
+<!-- Modal Edit Projects -->
+<div class="modal fade" id="modalEditProjects" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">Editar Projeto</h3>
+            </div>
+            <form id="formEditProjects">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputTitleProject">Título</label>
+                        <input type="text" class="form-control" name="inputEditTitleProject" id="inputEditTitleProject"
+                               placeholder="O título do projeto">
+                        <input type="hidden" id="inputHiddenEditProject" name="inputHiddenEditProject">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center center-block">
+                        <input type="button" class="cancelHome button" id="cancelEditButtonHome" data-dismiss="modal"
+                               value="Close">
+                        <input type="button" onclick="editProject()" class="button greyHome" value="Editar">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- #Modal Edit Projects -->
+<!-- Modal Delete Projects -->
+<div class="modal fade" id="modalDeleteProjects" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="labelDeleteModal">Apagar Projeto</h3>
+            </div>
+            <form id="formDeleteProjects">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <p>
+                        <div id="inputQuestionProject">Tem a certeza que deseja apagar o projecto :</div>
+                        <div id="inputDeleteProject"></div>
+                        </p>
+                        <input type="hidden" id="inputHiddenDeleteProject" name="inputHiddenDeleteProject">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center center-block">
+                        <input type="button" class="cancelHome button" id="cancelDeleteButtonHome" data-dismiss="modal"
+                               value="Close">
+                        <input type="button" onclick="deleteProject()" class="button greyHome" value="Apagar">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- #Modal Delete Projects -->
+<!-- Modal Insert tasks -->
+<div class="modal fade" id="modalCreateTasks" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalCreateTasksLabel">Inserir Nova tarefa</h3>
+            </div>
+            <form id="formCreateTasks">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputTitleTask">Título</label>
+                        <input type="text" class="form-control" name="inputTitleTask" id="inputTitleTask"
+                               placeholder="O título da tarefa">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center center-block">
+                        <input type="button" class="cancelHome button" id="cancelButtonHomeTask" data-dismiss="modal"
+                               value="Close">
+                        <input type="button" onclick="insertTask()" class="button greyHome" value="Inserir">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- #Modal Insert tasks -->
+<!-- Modal Edit tasks -->
+<div class="modal fade" id="modalEditTasks" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabelTask">Editar Tarefa</h3>
+            </div>
+            <form id="formEditTasks">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputTitleTask">Título</label>
+                        <input type="text" class="form-control" name="inputEditTitleTask" id="inputEditTitleTask"
+                               placeholder="A descrição da tarefa">
+                        <input type="hidden" id="inputHiddenEditTask" name="inputHiddenEditTask">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center center-block">
+                        <input type="button" class="cancelHome button" id="cancelEditButtonHomeTask"
+                               data-dismiss="modal" value="Close">
+                        <input type="button" onclick="editTask()" class="button greyHome" value="Editar">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- #Modal Edit tasks -->
+<!-- Modal Complete tasks -->
+<div class="modal fade" id="modalCompleteTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="labelCompleteTask">Concluír Tarefa</h3>
+            </div>
+            <form id="formCompleteTask">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <p>
+                        <div id="inputQuestionCompleteTask">Tem a certeza que deseja concluír esta tarefa?</div>
+                        <div id="inputCompleteTask"></div>
+                        </p>
+                        <input type="hidden" id="inputHiddenCompleteTask" name="inputHiddenCompleteTask">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center center-block">
+                        <input type="button" class="cancelHome button" id="closeCompleteButtonTask" data-dismiss="modal"
+                               value="Close">
+                        <input type="button" onclick="completeTask()" class="button greyHome" value="Concluír">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- #Modal Complete tasks -->
+<!-- Modal Delete tasks -->
+<div class="modal fade" id="modalDeleteTasks" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="labelDeleteModalTasks">Apagar Tarefa</h3>
+            </div>
+            <form id="formDeleteTasks">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <p>
+                        <div id="inputQuestionTask">Tem a certeza que deseja apagar a tarefa :</div>
+                        <div id="inputDeleteTask"></div>
+                        </p>
+                        <input type="hidden" id="inputHiddenDeleteTask" name="inputHiddenDeleteTask">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center center-block">
+                        <input type="button" class="cancelHome button" id="cancelDeleteButtonHomeTasks"
+                               data-dismiss="modal" value="Close">
+                        <input type="button" onclick="deleteTask()" class="button greyHome" value="Apagar">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- #Modal Delete tasks -->
+
+
+
+<!--Vendor-JS-->
+<script src="/static/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="/static/js/vendor/bootstrap.min.js"></script>
+<!--Plugin-JS-->
+ <script src="/static/js/owl.carousel.min.js"></script>
+<script src="/static/js/jquery.parallax-1.1.3.js"></script>
+<script src="/static/js/scrollUp.min.js"></script>
+<script src="/static/js/magnific-popup.min.js"></script>
+<script src="/static/js/wow.min.js"></script>
+<!--Main-active-JS-->
+<script src="/static/js/main.js"></script>
+<!--Custom Scripts-->
+<script src="/static/js/scriptIndex.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</body>
+</html>
