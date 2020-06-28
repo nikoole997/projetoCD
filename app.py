@@ -7,7 +7,6 @@ import os
 from flask import Flask, request, jsonify, make_response, session, send_from_directory
 from models import Database
 
-
 # ==========
 #  Settings
 # ==========
@@ -27,13 +26,13 @@ db = Database(filename=':memory:', schema='schema.sql')
 db.recreate()
 
 
-
 # ===========
 #  Authentication
 # ===========
 def ok_user_and_password(username, password):
     """Checks if user and password corresponds to the current user"""
     return username == app.config['USERNAME'] and password == app.config['PASSWORD']
+
 
 def authenticate():
     """ Authenticates user """
@@ -45,8 +44,10 @@ def authenticate():
 
     return resp
 
+
 def requires_authorization(func):
     """ Authorization function wraper """
+
     @functools.wraps(func)
     def decorated(*args, **kwargs):
         auth = request.authorization
@@ -54,13 +55,34 @@ def requires_authorization(func):
             session.pop('id', None)
             return authenticate()
         return func(*args, **kwargs)
+
     return decorated
+
+def validate_user_fields(user):
+    """ Validates user has no empty fields"""
+    if user['username'] == '':
+        return "Invalid username"
+    if user['email'] == '':
+        return "Invalid email"
+    if user['name'] == '':
+        return "Invalid name"
+    if user['password'] == '':
+        return "Invalid password"
+
+    return "OK"
+
+
+def validate_duplicates(user):
+    """ Validates if username and email doesnt exist in the database """
+    if db.get_user_by_email(user['email']) is not None:
+        return "Email already exists"
+    if db.get_user_by_username(user['username']) is not None:
+        return "Username already exists"
+    return "OK"
 
 # ===========
 #  Web views
 # ===========
-
-
 
 @app.route('/api/')
 def index():
@@ -71,6 +93,8 @@ def index():
 # ===========
 #  API views
 # ===========
+
+
 @app.route('/authorization/getusername', methods=['GET'])
 @requires_authorization
 def user_getusername():
@@ -82,6 +106,7 @@ def user_getusername():
         return make_response(jsonify(app.config["USERNAME"]), 201)
 
     return make_response({}, 403)
+
 
 @app.route('/authorization/getpassword', methods=['GET'])
 @requires_authorization
@@ -95,14 +120,20 @@ def user_getpassword():
 
     return make_response({}, 403)
 
+
 @app.route('/api/user/register/', methods=['POST'])
 def user_register():
     """ Register a user """
     if request.method == 'POST':
         new_user = request.get_json()
-        db.insert_user(new_user)
-        return make_response({}, 201)
-
+        res = validate_user_fields(new_user)
+        if res == "OK":
+            res = validate_duplicates(new_user)
+            if res == "OK":
+                db.insert_user(new_user)
+                return make_response({}, 201)
+            return make_response(jsonify(res), 403)
+        return make_response(jsonify(res), 403)
     return make_response({}, 405)
 
 
@@ -121,8 +152,8 @@ def user_login():
             query.update({"session" : session["id"]})
             return make_response(query, 200)
         return make_response({}, 404)
-    return make_response({}, 405)
 
+    return make_response({}, 405)
 
 @app.route('/api/user/logout', methods=['GET'])
 def user_logout():
@@ -140,6 +171,7 @@ def user_detail():
     Requires authorization.
     """
     user = db.get_user(request.authorization.username, request.authorization.password)
+
     if user is None:
         return make_response({}, 403)
 
@@ -149,11 +181,14 @@ def user_detail():
 
     if request.method == 'PUT':
         edit_user = request.get_json()
-        db.update_user(edit_user, session['id'])
-        app.config['PASSWORD'] = edit_user['password']
-        return make_response(jsonify(edit_user), 200)
-
+        res = validate_user_fields(edit_user)
+        if res == "OK":
+            db.update_user(edit_user, session['id'])
+            app.config['PASSWORD'] = edit_user['password']
+            return make_response(jsonify(edit_user), 200)
+        return make_response(jsonify(res), 403)
     return make_response({}, 405)
+
 
 @app.route('/api/projects/', methods=['GET', 'POST'])
 @requires_authorization
@@ -171,6 +206,8 @@ def project_list():
 
     if request.method == 'POST':
         new_project = request.get_json()
+        if new_project['title'] == '':
+            return make_response(jsonify("Project title can't be empty"), 403)
         try:
             db.insert_project(session["id"], new_project)
             return make_response(jsonify(new_project), 201)
@@ -197,6 +234,8 @@ def project_detail(project_id):
     if request.method == 'PUT':
         edit_project = request.get_json()
         try:
+            if edit_project['title'] == '':
+                return make_response(jsonify("Project title can't be empty"), 403)
             db.update_project(project_id, edit_project)
             return make_response(jsonify(edit_project), 200)
         except:
@@ -207,6 +246,7 @@ def project_detail(project_id):
         return make_response({}, 200)
 
     return make_response({}, 405)
+
 
 @app.route('/api/projects/<int:project_id>/tasks/', methods=['GET', 'POST'])
 @requires_authorization
@@ -223,6 +263,8 @@ def task_list(project_id):
         return make_response(jsonify(tasks))
     if request.method == 'POST':
         new_task = request.get_json()
+        if new_task['title'] == '':
+            return make_response(jsonify("Task title can't be empty"), 403)
         try:
             db.insert_task(project_id, new_task)
             return make_response(jsonify(new_task), 201)
@@ -250,6 +292,8 @@ def task_detail(project_id, task_id):
         edit_task = request.get_json()
         try:
             if 'title' in edit_task:
+                if edit_task['title'] == '':
+                    return make_response(jsonify("Task title can't be empty"), 403)
                 db.update_task_title(task_id, project_id, edit_task['title'])
             else:
                 db.update_task_completed(task_id, project_id, edit_task['completed'])
@@ -264,4 +308,4 @@ def task_detail(project_id, task_id):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=8000)
