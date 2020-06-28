@@ -96,7 +96,7 @@ def index():
 
 
 @app.route('/authorization/getusername', methods=['GET'])
-@requires_authorization
+
 def user_getusername():
     """
     Returns current username information
@@ -109,7 +109,7 @@ def user_getusername():
 
 
 @app.route('/authorization/getpassword', methods=['GET'])
-@requires_authorization
+
 def user_getpassword():
     """
      Returns current password information
@@ -147,8 +147,8 @@ def user_login():
             app.config['USERNAME'] = login_user["username"]
             app.config['PASSWORD'] = login_user["password"]
             session["id"] = query["id"]
-            if request.authorization is None:
-                return make_response({}, 403)
+            session["username"] = query["username"]
+            session["password"] = query["password"]
             query.update({"session" : session["id"]})
             return make_response(query, 200)
         return make_response({}, 404)
@@ -170,7 +170,7 @@ def user_detail():
     Returns or updates current user.
     Requires authorization.
     """
-    user = db.get_user(request.authorization.username, request.authorization.password)
+    user = db.get_user(session["username"], session["password"])
 
     if user is None:
         return make_response({}, 403)
@@ -191,7 +191,6 @@ def user_detail():
 
 
 @app.route('/api/projects/', methods=['GET', 'POST'])
-@requires_authorization
 def project_list():
     """
     Project list.
@@ -218,7 +217,6 @@ def project_list():
 
 
 @app.route('/api/projects/<int:project_id>/', methods=['GET', 'PUT', 'DELETE'])
-@requires_authorization
 def project_detail(project_id):
     """
     Project detail.
@@ -249,7 +247,6 @@ def project_detail(project_id):
 
 
 @app.route('/api/projects/<int:project_id>/tasks/', methods=['GET', 'POST'])
-@requires_authorization
 def task_list(project_id):
     """
     Task list.
@@ -274,7 +271,6 @@ def task_list(project_id):
 
 
 @app.route('/api/projects/<int:project_id>/tasks/<int:task_id>/', methods=['GET', 'PUT', 'DELETE'])
-@requires_authorization
 def task_detail(project_id, task_id):
     """
     Task detail.
