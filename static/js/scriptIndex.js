@@ -14,7 +14,7 @@ function register() {
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function(){
         var status = req.status;
-        if (status != 201) {
+        if (status != "201") {
            getAlertWarnningIndex('Não foi possível registar o utilizador');
         }
         else{
