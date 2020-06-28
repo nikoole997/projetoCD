@@ -18,7 +18,7 @@ app.config['DEBUG'] = True
 app.config['USERNAME'] = "SUPERSECUREUSERNAME"
 app.config['PASSWORD'] = "SUPERSECUREPASSWORD"
 app.secret_key = os.urandom(24)
-port = int(os.environ.get('PORT', 5000))
+#port = int(os.environ.get('PORT', 5000))
 
 # ==========
 #  Database
