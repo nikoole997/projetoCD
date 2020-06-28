@@ -112,7 +112,7 @@ function getProjects() {
     req.setRequestHeader('Content-Type', 'application/json');
     req.setRequestHeader('Authorization', 'Basic ' + userlogado);
     req.addEventListener("load", function() {
-        var projects = JSON.parse(this.responseText);
+        var projects = JSON.parse(req.responseText);
         var table = document.getElementById('tableProjects');
         var tableBody = document.createElement('TBODY');
         table.appendChild(tableBody);
@@ -176,7 +176,7 @@ var req = new XMLHttpRequest();
     req.setRequestHeader('Authorization', 'Basic ' + userlogado);
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function() {
-         var project = JSON.parse(this.responseText);
+         var project = JSON.parse(req.responseText);
          document.getElementById('inputEditTitleProject').value = project.title;
          document.getElementById('inputHiddenEditProject').value = project.id;
     });
@@ -190,7 +190,7 @@ var req = new XMLHttpRequest();
     req.setRequestHeader('Authorization', 'Basic ' + userlogado);
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function() {
-         var project = JSON.parse(this.responseText);
+         var project = JSON.parse(req.responseText);
          document.getElementById('inputDeleteProject').innerHTML = '<b>' + project.title + '</b> ?';
          document.getElementById('inputHiddenDeleteProject').value = project.id;
     });
@@ -261,7 +261,7 @@ function getTasks(project_id){
     req.addEventListener("load", function() {
      document.getElementById('tableTasksDiv').style.display = "None";
      document.getElementById('tableTasks').style.display = "block";
-        var tasks = JSON.parse(this.responseText);
+        var tasks = JSON.parse(req.responseText);
         if (tasks != ""){
         var table = document.getElementById('tableTasks');
         var k = '';
@@ -331,7 +331,7 @@ var req = new XMLHttpRequest();
     req.setRequestHeader('Authorization', 'Basic ' + userlogado);
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function() {
-         var task = JSON.parse(this.responseText);
+         var task = JSON.parse(req.responseText);
          document.getElementById('inputEditTitleTask').value = task.title;
          document.getElementById('inputHiddenEditTask').value = task.id;
     });
@@ -347,7 +347,7 @@ var req = new XMLHttpRequest();
     req.setRequestHeader('Authorization', 'Basic ' + userlogado);
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function() {
-         var task = JSON.parse(this.responseText);
+         var task = JSON.parse(req.responseText);
          document.getElementById('inputCompleteTask').innerHTML = '<b>' + task.title + '</b> ?';
          document.getElementById('inputHiddenCompleteTask').value = task.id;
     });
@@ -383,7 +383,7 @@ var req = new XMLHttpRequest();
     req.setRequestHeader('Authorization', 'Basic ' + userlogado);
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function() {
-         var task = JSON.parse(this.responseText);
+         var task = JSON.parse(req.responseText);
          document.getElementById('inputDeleteTask').innerHTML = '<b>' + task.title + '</b> ?';
          document.getElementById('inputHiddenDeleteTask').value = task.id;
     });
@@ -515,7 +515,7 @@ function showUserDetails(){
     req.setRequestHeader('Authorization', 'Basic ' + userlogado);
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function() {
-         var user = JSON.parse(this.responseText);
+         var user = JSON.parse(req.responseText);
          document.getElementById('editInformationsUserDiv').style.display ="none";
          document.getElementById('idUserArea').innerHTML = '<input type="hidden" id="idEditInformationUser" value="' + user.id  + '">';
          document.getElementById('nameUserArea').innerHTML = '<input type="text" id="nameEditInformationUser" placeholder="' + user.name + '" value="' + user.name  + '" disabled=true>';
