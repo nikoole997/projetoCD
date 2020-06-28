@@ -12,12 +12,17 @@ Colocar todos os ficheiros (incluindo este readme) no zip, excepto as pastas pyc
 - Para o frontend aconselha-se fortemente a utilização de frameworks tipo bootstrap (https://getbootstrap.com/). Irá facilitar-vos bastante o trabalho e será cotado como extra.
 
 ## Equipa
-Colocar aqui os nomes e números de alunos...
+Fábio Faustino Nº 090221026
+Nicole Fernandes Nº 180221090
 
-Professor responsável: colocar aqui...
+Professor responsável: Prof.Aníbal Ponte
 
 ## Repositório 
-Colocar o link aqui...
+https://github.com/cd-lei/tp4-tp4-fabiofaustino-nicolefernandes
 
 ## Extras
-Colocar aqui os extras implementados..
+Testes
+Deploy Link para o deploy: https://projectocdn.herokuapp.com/api/
+Session
+Aplicação de Bootstrap
+

@@ -56,6 +56,18 @@ class Database:
             (username, password)
         ).fetchone()
 
+    def get_user_by_email(self, email):
+        """ Returns a user from the database with given email"""
+        return self.execute_query(
+            "SELECT * FROM user WHERE email='%s'" % email
+        ).fetchone()
+
+    def get_user_by_username(self, username):
+        """ Returns a user from the database with given username """
+        return self.execute_query(
+            "SELECT * FROM user WHERE username='%s'" % username
+        ).fetchone()
+
     def insert_user(self, user):
         """ Inserts a user in the database"""
         return self.execute_query(

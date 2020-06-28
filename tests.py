@@ -121,6 +121,48 @@ class TestUsers(TestBase):
                              mockuser, False)
         self.assertEqual(res.status_code, 201)
 
+    def test_email_exists_registration_response(self):
+        """ Tests if a user is registered successfully with a duplicate email """
+        mockuser = self.create_mock_user('Test Name', 'homer@simpsons.org', 'testusername', 'testpassword')
+        res = self.post_test('/api/user/register/',
+                             mockuser, False)
+        self.assertEqual(res.status_code, 403)
+
+    def test_username_exists_registration_response(self):
+        """ Tests if a user is registered successfully with a duplicate username """
+        mockuser = self.create_mock_user('Test Name', 'test@email.com', 'homer', 'testpassword')
+        res = self.post_test('/api/user/register/',
+                             mockuser, False)
+        self.assertEqual(res.status_code, 403)
+
+    def test_username_empty_registration_response(self):
+        """ Tests if a user is registered successfully with a empty username """
+        mockuser = self.create_mock_user('Test Name', 'test@email.com', '', 'testpassword')
+        res = self.post_test('/api/user/register/',
+                             mockuser, False)
+        self.assertEqual(res.status_code, 403)
+
+    def test_password_empty_registration_response(self):
+        """ Tests if a user is registered successfully with a empty password """
+        mockuser = self.create_mock_user('Test Name', 'test@email.com', 'test', '')
+        res = self.post_test('/api/user/register/',
+                             mockuser, False)
+        self.assertEqual(res.status_code, 403)
+
+    def test_name_empty_registration_response(self):
+        """ Tests if a user is registered successfully with a empty password """
+        mockuser = self.create_mock_user('', 'test@email.com', 'test', 'testpassword')
+        res = self.post_test('/api/user/register/',
+                             mockuser, False)
+        self.assertEqual(res.status_code, 403)
+
+    def test_email_empty_registration_response(self):
+        """ Tests if a user is registered successfully with a empty email """
+        mockuser = self.create_mock_user('testname', '', 'test', 'testpassword')
+        res = self.post_test('/api/user/register/',
+                             mockuser, False)
+        self.assertEqual(res.status_code, 403)
+
     def test_login_wrong_info(self):
         """ Tests if a user can login with wrong information"""
         res = self.post_test('/api/user/login',
@@ -154,6 +196,27 @@ class TestUsers(TestBase):
                                          'password_changed')
         res = self.put_test('/api/user/', mockedit, True)
         self.assertEqual(res.status_code, 200)
+
+    def test_edit_user_password_empty_response(self):
+        """ Tests if a user is updated successfully with a empty password """
+        self.login()
+        mockuser = self.create_mock_user('Test Name', 'test@email.com', 'test', '')
+        res = self.put_test('/api/user/', mockuser, True)
+        self.assertEqual(res.status_code, 403)
+
+    def test_edit_user_name_empty_response(self):
+        """ Tests if a user is updated successfully with a empty password """
+        self.login()
+        mockuser = self.create_mock_user('', 'test@email.com', 'test', 'testpassword')
+        res = self.put_test('/api/user/', mockuser, True)
+        self.assertEqual(res.status_code, 403)
+
+    def test_edit_user_email_empty_response(self):
+        """ Tests if a user is updated successfully with a empty email """
+        self.login()
+        mockuser = self.create_mock_user('testname', '', 'test', 'testpassword')
+        res = self.put_test('/api/user/', mockuser, True)
+        self.assertEqual(res.status_code, 403)
 
 
 class TestProjects(TestBase):
@@ -201,8 +264,15 @@ class TestProjects(TestBase):
         res = self.put_test('/api/projects/1/', mockproject, True)
         self.assertEqual(res.status_code, 200)
 
-    def test_edit_project_response_incorrect_information(self):
-        """ Tests if a project is edited successfully - project Doughnuts"""
+    def test_edit_project_response_blank_title_information(self):
+        """ Tests if a project is edited successfully when no title is inserted """
+        self.login()
+        mockproject = self.create_mock_project('', '20/20/2020', '21/12/2020')
+        res = self.put_test('/api/projects/1/', mockproject, True)
+        self.assertEqual(res.status_code, 403)
+
+    def test_edit_task_response_incorrect_information(self):
+        """ Tests the response of invalid data on project edition """
         self.login()
         res = self.put_test('/api/projects/1/', '', True)
         self.assertEqual(res.status_code, 500)
@@ -272,11 +342,18 @@ class TestTasks(TestBase):
         res = self.put_test('/api/projects/1/tasks/1/', mocktask, True)
         self.assertEqual(res.status_code, 200)
 
-    def test_edit_project_response_incorrect_information(self):
+    def test_edit_task_response_incorrect_information(self):
         """ Tests the response of invalid data on task edition """
         self.login()
         res = self.put_test('/api/projects/1/tasks/1/', '', True)
         self.assertEqual(res.status_code, 500)
+
+    def test_edit_task_response_blank_title_information(self):
+        """ Tests if a project is edited successfully when no title is inserted """
+        self.login()
+        mocktask = self.create_mock_task('1', '', '20/20/2020', 1)
+        res = self.put_test('/api/projects/1/tasks/1/', mocktask, True)
+        self.assertEqual(res.status_code, 403)
 
     def test_delete_task_response(self):
         """ Tests if a task is deleted successfully - project Doughnuts"""

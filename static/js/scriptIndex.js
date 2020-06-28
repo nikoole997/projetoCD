@@ -13,7 +13,14 @@ function register() {
     req.open("POST", "/api/user/register/");
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function(){
-     });
+        var status = req.status;
+        if (status != 201) {
+           getAlertWarnningIndex('Não foi possível registar o utilizador');
+        }
+        else{
+            getAlertSuccessIndex('Utilizador registado com sucesso');
+        }
+    });
     req.send(JSON.stringify({"name":name, "username":username, "email": email, "password": password }));
     form.inputName.value = "";
     form.inputUsername.value = "";
@@ -43,12 +50,11 @@ function login() {
     req.setRequestHeader('Authorization', 'Basic ' + userlogado);
      req.addEventListener("load", function(){
         var status = req.status;
-        if (status == "500" || status == "403") {
+        if (status != "200") {
             window.location.href = "/api/";
             return false;
         }
         else {
-
         var jsonResponse = JSON.parse(req.response);
         sessionStorage.setItem("id", jsonResponse["session"]);
         sessionStorage.setItem("user", userlogado);
@@ -60,26 +66,42 @@ function login() {
          req.send(JSON.stringify({'username': username, 'password': password}));
 }
 
+function getAlertSuccessIndex(message){
+ document.getElementById('successDialogIndex').style.display = "block";
+  document.getElementById('warningDialogIndex').style.display = "none";
+ document.getElementById('successInformationIndex').innerHTML = message;
+}
+
+function getAlertWarnningIndex(message){
+ document.getElementById('warningDialogIndex').style.display = "block";
+ document.getElementById('successDialogIndex').style.display = "none";
+ document.getElementById('warningInformationIndex').innerHTML = message;
+}
+
 
 /***********
 *  Projects
 ************/
 function getAlertSuccess(message){
  document.getElementById('successDialog').style.display = "block";
+  document.getElementById('warningDialog').style.display = "none";
  document.getElementById('successInformation').innerHTML = message;
 }
 
 function getAlertWarnning(message){
+document.getElementById('successDialog').style.display = "none";
  document.getElementById('warningDialog').style.display = "block";
  document.getElementById('warningInformation').innerHTML = message;
 }
 
 function getAlertSuccessUser(message){
  document.getElementById('successDialogUser').style.display = "block";
+  document.getElementById('warningDialogUser').style.display = "none";
  document.getElementById('successInformationUser').innerHTML = message;
 }
 
 function getAlertWarnningUser(message){
+ document.getElementById('successDialogUser').style.display = "none";
  document.getElementById('warningDialogUser').style.display = "block";
  document.getElementById('warningInformationUser').innerHTML = message;
 }
@@ -133,15 +155,18 @@ function insertProject() {
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function(){
         var status = req.status;
-        if (status == "500") {
+        if (status != "201") {
+            getAlertWarnning('Não foi possível inserir o projeto');
             return false;
+     }else {
+
+     getAlertSuccess('Projeto inserido com successo');
      }
      });
      var response = req.send(JSON.stringify({"title": title, "creation_date": creationDate, "last_updated": lastUpdated}));
-     $('#modalCreateProjects').modal('hide');
+      $('#modalCreateProjects').modal('hide');
      form.inputTitleProject.value = "";
      getProjects();
-     getAlertSuccess('Projeto inserido com successo');
 }
 
 function openModalEditProjects(id){
@@ -183,8 +208,11 @@ function editProject(){
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function(){
         var status = req.status;
-        if (status == "500") {
+        if (status != "200") {
+            getAlertWarnning('Não foi possível editar o projeto com sucesso');
             return false;
+     } else {
+         getAlertSuccess('Projecto editado com sucesso');
      }
      }
      );
@@ -192,8 +220,7 @@ function editProject(){
      $('#modalEditProjects').modal('hide');
      form.inputEditTitleProject.value = "";
      getProjects();
-     getAlertSuccess('Projecto editado com sucesso');
-     form.inputEditTitleProject.value = "";
+
 }
 
 function deleteProject(){
@@ -205,8 +232,12 @@ function deleteProject(){
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function(){
         var status = req.status;
-        if (status == "500") {
+        if (status != "200") {
+        getAlertWarnning('Não foi possível apagar o projeto com sucesso');
             return false;
+     }
+     else {
+     getAlertSuccess('Projecto apagado com sucesso');
      }
      }
      );
@@ -280,14 +311,15 @@ function insertTask() {
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function(){
         var status = req.status;
-        if (status == "500") {
+        if (status != "201" ) {
+             getAlertWarnning('Não foi possível adicionar uma tarefa ao projeto');
             return false;
-     }
+         }else{
+            getAlertSuccess('Tarefa adicionada ao projeto com sucesso');
+        }
      });
      var response = req.send(JSON.stringify({"title": title, "creation_date": creationDate, "completed": completed}));
       $('#modalCreateTasks').modal('hide');
-     getTasks(project_id);
-     getAlertSuccess('Tarefa inserida com successo');
      form.inputTitleTask.value = "";
 }
 
@@ -368,15 +400,16 @@ function editTask(){
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function(){
         var status = req.status;
-        if (status == "500") {
+        if (status != "200") {
+         getAlertWarnning('Não foi possível editar uma tarefa ');
             return false;
+     }else {
+         getAlertSuccess('Tarefa editada com sucesso');
      }
      }
      );
      var response = req.send(JSON.stringify({"title": title}));
      $('#modalEditTasks').modal('hide');
-     getTasks(project_id);
-     getAlertSuccess('Tarefa editada com successo');
      form.inputEditTitleTask.value = "";
 }
 
@@ -390,19 +423,24 @@ function deleteTask(){
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function(){
         var status = req.status;
-        if (status == "500") {
+        if (status != "200") {
+        getAlertWarnning('Não foi possível apagar tarefa com successo');
             return false;
-     }
+            }
+            else{
+            getAlertSuccess('Tarefa apagada com successo');
+            }
      }
      );
     var response = req.send();
     $('#modalDeleteTasks').modal('hide');
-    getTasks(project_id);
-    getAlertSuccess('Tarefa apagada com successo');
+
 }
 
 function checkPages(page){
 if(userlogado == "") {
+document.getElementById("warningDialogIndex").style.display = "none";
+document.getElementById("successDialogIndex").style.display = "none";
 document.getElementById("login-page").style.display = "block";
 document.getElementById("mainmenu-area-top").style.display = "None";
 document.getElementById("main-page-projects").style.display = "None";
@@ -410,6 +448,8 @@ document.getElementById('tasks-div').style.display = "None";
 document.getElementById('tableTasksDiv').style.display = "None";
 document.getElementById('usersAccount').style.display ="None";
 } else if(page == "inicial"){
+document.getElementById("warningDialogIndex").style.display = "none";
+document.getElementById("successDialogIndex").style.display = "none";
 document.getElementById("login-page").style.display = "none";
 document.getElementById("main-page-projects").style.display = "block";
 document.getElementById("mainmenu-area-top").style.display = "block";
@@ -419,6 +459,8 @@ document.getElementById('warningDialog').style.display = "None";
 document.getElementById('tasks-div').style.display = "None";
 }
 else {
+document.getElementById("warningDialogIndex").style.display = "none";
+document.getElementById("successDialogIndex").style.display = "none";
 document.getElementById("login-page").style.display = "none";
 document.getElementById("main-page-projects").style.display = "none";
 document.getElementById('usersAccount').style.display ="block";
@@ -447,15 +489,19 @@ function editUserInformations(){
     req.setRequestHeader('Content-Type', 'application/json');
     req.addEventListener("load", function(){
         var status = req.status;
-        if (status == "500") {
+        if (status != "200") {
+        getAlertWarnningUser('Não foi possível editar o utilizador com sucesso');
             return false;
+     }
+     else{
+     getAlertSuccessUser('Utilizador editado com sucesso');
      }
      }
      );
      document.getElementById('userLoggedArea').innerHTML = name;
      var response = req.send(JSON.stringify({"name": name, "email": email, "username": username, "password": password}));
      disabledUserEdit();
-     getAlertSuccessUser('Utilizador editado com sucesso');
+
 }
 
 
