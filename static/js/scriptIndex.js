@@ -321,6 +321,7 @@ function insertTask() {
      var response = req.send(JSON.stringify({"title": title, "creation_date": creationDate, "completed": completed}));
       $('#modalCreateTasks').modal('hide');
      form.inputTitleTask.value = "";
+     getTasks(project_id);
 }
 
 function openModalEditTasks(id, task_id){
@@ -372,6 +373,7 @@ function completeTask(){
      $('#modalCompleteTask').modal('hide');
      getTasks(project_id);
      getAlertSuccess('Tarefa concluída com successo');
+
 }
 
 function openModalDeleteTasks(id, idTask){
@@ -411,6 +413,7 @@ function editTask(){
      var response = req.send(JSON.stringify({"title": title}));
      $('#modalEditTasks').modal('hide');
      form.inputEditTitleTask.value = "";
+     getTasks(project_id);
 }
 
 function deleteTask(){
@@ -434,7 +437,7 @@ function deleteTask(){
      );
     var response = req.send();
     $('#modalDeleteTasks').modal('hide');
-
+    getTasks(project_id);
 }
 
 function checkPages(page){
